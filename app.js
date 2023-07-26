@@ -12,6 +12,10 @@ const auth = require("./auth");
 // execute database connection
 dbConnect();
 
+const favicon = require("express-favicon");
+
+app.use(favicon(__dirname + "/public/favicon.png"));
+
 // Curb Cores Error by adding a header here
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
