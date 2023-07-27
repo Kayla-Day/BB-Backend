@@ -180,6 +180,12 @@ app.post("/withdraw", async (req, res) => {
   }
 });
 
+app.post("/logout", (req, res) => {
+  // This is where you handle the logout
+  // Simply respond with a success message as the client-side handles token removal
+  return res.json({ message: "Logout successful" });
+});
+
 // free endpoint
 app.get("/free-endpoint", (request, response) => {
   response.json({ message: "You are free to access me anytime" });
