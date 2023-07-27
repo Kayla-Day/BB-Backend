@@ -134,6 +134,52 @@ app.post("/login", (request, response) => {
     });
 });
 
+//Testing Deposit and Withdrawal functionality
+// Deposit
+app.post("/deposit", async (req, res) => {
+  const { email, amount } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.balance += amount;
+    await user.save();
+
+    res.json({ message: "Deposit successful", balance: user.balance });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// withdraw
+app.post("/withdraw", async (req, res) => {
+  const { email, amount } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (user.balance < amount) {
+      return res.status(400).json({ error: "Insufficient balance" });
+    }
+
+    user.balance -= amount;
+    await user.save();
+
+    res.json({
+      message: "Withdrawal successful",
+      balance: user.balance,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // free endpoint
 app.get("/free-endpoint", (request, response) => {
   response.json({ message: "You are free to access me anytime" });
