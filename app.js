@@ -188,7 +188,7 @@ app.post("/logout", (req, res) => {
 
 // free endpoint
 app.get("/free-endpoint", (request, response) => {
-  response.json({ message: "You are free to access me anytime" });
+  response.json({ message: "" });
 });
 
 // authentication endpoint
