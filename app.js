@@ -197,14 +197,13 @@ app.get("/free-endpoint", (request, response) => {
 // });
 
 app.get("/auth-endpoint", auth, (request, response) => {
-  const user = request.user;
   // const email = user.email;
   // const balance = user.balance;
 
   response.send({
     message: "",
-    email: user.email,
-    balance: user.balance,
+    email: User.email,
+    balance: User.balance,
   });
 
   // response.send({
