@@ -191,20 +191,20 @@ app.get("/free-endpoint", (request, response) => {
   response.json({ message: "" });
 });
 
-// authentication endpoint (may need to remove email and balance)
-// app.get("/auth-endpoint", auth, (request, response) => {
-//   response.send({ message: "", email: user.email, balance: user.balance });
-// });
-
+// protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
-  const email = User.email;
-  const balance = User.balance;
-
-  response.send({
-    message: "",
-    email,
-    balance,
-  });
+  response.send({ message: "" });
 });
+
+// app.get("/auth-endpoint", auth, (request, response) => {
+//   const email = User.email;
+//   const balance = User.balance;
+
+//   response.send({
+//     message: "",
+//     email,
+//     balance,
+//   });
+// });
 
 module.exports = app;
