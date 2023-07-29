@@ -193,12 +193,6 @@ app.get("/free-endpoint", (request, response) => {
 
 // protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
-  return response.send({
-    message: "",
-  });
-});
-
-app.get("/data", auth, (request, response) => {
   const email = request.user.userEmail;
   const balance = request.user.balance;
 
@@ -207,6 +201,16 @@ app.get("/data", auth, (request, response) => {
     balance,
   });
 });
+
+// app.get("/data", auth, (request, response) => {
+//   const email = request.user.userEmail;
+//   const balance = request.user.balance;
+
+//   return response.send({
+//     email,
+//     balance,
+//   });
+// });
 
 // app.get("/auth-endpoint", auth, (request, response) => {
 //   const email = User.email;
