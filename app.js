@@ -191,9 +191,9 @@ app.get("/free-endpoint", (request, response) => {
   response.json({ message: "" });
 });
 
-// authentication endpoint
+// authentication endpoint (may need to remove email and balance)
 app.get("/auth-endpoint", auth, (request, response) => {
-  response.send({ message: "You are authorized to access me" });
+  response.send({ message: "", email: user.email, balance: user.balance });
 });
 
 module.exports = app;
