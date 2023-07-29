@@ -192,8 +192,18 @@ app.get("/free-endpoint", (request, response) => {
 });
 
 // authentication endpoint (may need to remove email and balance)
+// app.get("/auth-endpoint", auth, (request, response) => {
+//   response.send({ message: "", email: user.email, balance: user.balance });
+// });
+
 app.get("/auth-endpoint", auth, (request, response) => {
-  response.send({ message: "", email: user.email, balance: user.balance });
+  const user = request.user;
+  const email = user.email;
+  const balance = user.balance;
+
+  return response.json({ message: "", email, balance });
+
+  // return response.send({ message: "", email, balance});
 });
 
 module.exports = app;
