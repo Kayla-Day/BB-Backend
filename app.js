@@ -138,7 +138,7 @@ app.post("/login", (request, response) => {
 // Deposit
 app.post("/deposit", async (req, res) => {
   // const { email, amount } = req.body;
-  const amount = Number(req.body.amount);
+  const amount = Number(req.body.deposit);
   const email = req.body.email;
 
   try {
@@ -162,7 +162,7 @@ app.post("/deposit", async (req, res) => {
 // withdraw
 app.post("/withdraw", async (req, res) => {
   // const { email, amount } = req.body;
-  const amount = Number(req.body.amount);
+  const amount = Number(req.body.withdraw);
   const email = req.body.email;
 
   try {
