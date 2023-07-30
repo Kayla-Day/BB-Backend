@@ -204,13 +204,7 @@ app.get("/free-endpoint", (request, response) => {
 
 // protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
-  const email = request.user.userEmail;
-  const balance = request.user.balance;
-
-  return response.send({
-    email,
-    balance,
-  });
+  response.json({ message: "" });
 });
 
 app.get("/api/users", auth, async (request, response) => {
