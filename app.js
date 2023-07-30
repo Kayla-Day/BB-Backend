@@ -207,6 +207,23 @@ app.get("/auth-endpoint", auth, (request, response) => {
   response.json({ message: "" });
 });
 
+// get user data
+app.get("/users", auth, async (request, response) => {
+  const userId = request.user.id;
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return response.status(404).json({ message: "User not found" });
+      }
+      response.json({ email: user.email, balance: user.balance });
+    })
+    .catch((error) => {
+      console.error(error);
+      response.status(500).json({ error: "Server error" });
+    });
+});
+
+//get all data
 app.get("/api/users", auth, async (request, response) => {
   try {
     const users = await User.find({}, { password: 0 });
