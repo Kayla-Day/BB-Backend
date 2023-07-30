@@ -82,7 +82,10 @@ app.post("/register", (request, response) => {
 // login endpoint
 app.post("/login", (request, response) => {
   // check if email exists
-  User.findOne({ email: request.body.email })
+  User.findOne({
+    email: request.body.email,
+    balance: request.body.balance,
+  })
 
     // if email exists
     .then((user) => {
@@ -207,7 +210,6 @@ app.get("/auth-endpoint", auth, (request, response) => {
   return response.send({
     email,
     balance,
-    // });
   });
 });
 
