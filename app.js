@@ -213,15 +213,14 @@ app.get("/auth-endpoint", auth, (request, response) => {
   });
 });
 
-// app.get("/data", auth, (request, response) => {
-//   const email = request.user.userEmail;
-//   const balance = request.user.balance;
-
-//   return response.send({
-//     email,
-//     balance,
-//   });
-// });
+app.get("/api/users", auth, async (request, response) => {
+  try {
+    const users = await User.find({}, { password: 0 });
+    response.json(users);
+  } catch (error) {
+    response.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 // app.get("/auth-endpoint", auth, (request, response) => {
 //   const email = User.email;
