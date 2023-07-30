@@ -208,7 +208,7 @@ app.get("/auth-endpoint", auth, (request, response) => {
 });
 
 // get user data
-app.get("/users", auth, async (request, response) => {
+app.get("/userData", auth, async (request, response) => {
   const userId = request.user.id;
   User.findById(userId)
     .then((user) => {
@@ -224,7 +224,7 @@ app.get("/users", auth, async (request, response) => {
 });
 
 //get all data
-app.get("/api/users", auth, async (request, response) => {
+app.get("/allUsers", auth, async (request, response) => {
   try {
     const users = await User.find({}, { password: 0 });
     response.json(users);
