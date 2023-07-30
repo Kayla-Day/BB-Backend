@@ -208,7 +208,7 @@ app.get("/auth-endpoint", auth, (request, response) => {
 });
 
 // get user data
-app.get("/userData", auth, async (request, response) => {
+app.get("/userData", (request, response) => {
   const userId = request.user.id;
   User.findById(userId)
     .then((user) => {
@@ -223,15 +223,15 @@ app.get("/userData", auth, async (request, response) => {
     });
 });
 
-//get all data
-app.get("/allUsers", auth, async (request, response) => {
-  try {
-    const users = await User.find({}, { password: 0 });
-    response.json(users);
-  } catch (error) {
-    response.status(500).json({ error: "Internal Server Error" });
-  }
-});
+// //get all data
+// app.get("/allUsers", auth, async (request, response) => {
+//   try {
+//     const users = await User.find({}, { password: 0 });
+//     response.json(users);
+//   } catch (error) {
+//     response.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
 
 // app.get("/auth-endpoint", auth, (request, response) => {
 //   const email = User.email;
