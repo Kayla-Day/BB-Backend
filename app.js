@@ -137,7 +137,9 @@ app.post("/login", (request, response) => {
 //Testing Deposit and Withdrawal functionality
 // Deposit
 app.post("/deposit", async (req, res) => {
-  const { email, amount } = req.body;
+  // const { email, amount } = req.body;
+  const amount = Number(req.body.amount);
+  const email = req.body.email;
 
   try {
     const user = await User.findOne({ email });
@@ -156,7 +158,9 @@ app.post("/deposit", async (req, res) => {
 
 // withdraw
 app.post("/withdraw", async (req, res) => {
-  const { email, amount } = req.body;
+  // const { email, amount } = req.body;
+  const amount = Number(req.body.amount);
+  const email = req.body.email;
 
   try {
     const user = await User.findOne({ email });
@@ -194,7 +198,7 @@ app.get("/free-endpoint", (request, response) => {
 // protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
   const email = request.user.userEmail;
-  const balance = request.user.userBalance;
+  const balance = Number(request.user.balance);
 
   return response.send({
     email,
