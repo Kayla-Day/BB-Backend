@@ -201,7 +201,7 @@ app.get("/free-endpoint", (request, response) => {
 // protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
   const email = request.user.userEmail;
-  const balance = Number(request.user.userBalance);
+  const balance = request.user.userBalance;
 
   return response.send({
     email,
