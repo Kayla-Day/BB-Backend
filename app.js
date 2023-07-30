@@ -200,20 +200,13 @@ app.get("/free-endpoint", (request, response) => {
 
 // protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
-  User.findOne({ email: request.body.email }).then((user) => {
-    response.send({
-      message: "",
-      email: user.email,
-      balance: user.balance,
+  const email = request.user.userEmail;
+  const balance = request.user.balance;
 
-      // const email = request.user.userEmail;
-      // const balance = request.user.balance;
-
-      // return response.send({
-      //   email,
-      //   balance,
-      // });
-    });
+  return response.send({
+    email,
+    balance,
+    // });
   });
 });
 
