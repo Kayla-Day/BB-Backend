@@ -207,6 +207,10 @@ app.get("/auth-endpoint", auth, (request, response) => {
   response.json({ message: "" });
 });
 
+// app.get("/userData", auth, async (request, response) => {
+
+// });
+
 // get user data
 app.get("/userData", (request, response) => {
   const userId = request.user.id;
