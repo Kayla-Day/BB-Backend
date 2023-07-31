@@ -207,7 +207,7 @@ app.get("/auth-endpoint", auth, async (request, response) => {
     balance: request.user.userBalance,
   });
   response.json({
-    message: "Welcome " + { user: user } + "!",
+    message: "Welcome Back!",
     user: user,
     balance: user.balance,
   });
