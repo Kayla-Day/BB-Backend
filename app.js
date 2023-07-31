@@ -207,25 +207,32 @@ app.get("/auth-endpoint", auth, (request, response) => {
   response.json({ message: "" });
 });
 
-// app.get("/userData", auth, async (request, response) => {
-
-// });
-
-// get user data
-app.get("/userData", (request, response) => {
-  const userId = request.user.id;
-  User.findById(userId)
-    .then((user) => {
+app.get("/userData", auth, async (request, response) => {
+  const user = await User.findOne({ email: request.user.userEmail }).then(
+    (user) => {
       if (!user) {
         return response.status(404).json({ message: "User not found" });
       }
       response.json({ email: user.email, balance: user.balance });
-    })
-    .catch((error) => {
-      console.error(error);
-      response.status(500).json({ error: "Server error" });
-    });
+    }
+  );
 });
+
+// // get user data
+// app.get("/userData", (request, response) => {
+//   const userId = request.user.id;
+//   User.findById(userId)
+//     .then((user) => {
+//       if (!user) {
+//         return response.status(404).json({ message: "User not found" });
+//       }
+//       response.json({ email: user.email, balance: user.balance });
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       response.status(500).json({ error: "Server error" });
+//     });
+// });
 
 // //get all data
 // app.get("/allUsers", auth, async (request, response) => {
