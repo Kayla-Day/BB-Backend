@@ -202,7 +202,7 @@ app.get("/free-endpoint", (request, response) => {
 
 // protected endpoint
 app.get("/auth-endpoint", auth, async (request, response) => {
-  response.json({ message: "test auth message" });
+  response.json({ message: "test auth message", user: request.user });
 });
 
 module.exports = app;
