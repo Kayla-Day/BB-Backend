@@ -204,6 +204,7 @@ app.get("/free-endpoint", (request, response) => {
 
 // protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
+  response.send({ user: request.user.User });
   response.json({ message: "" });
 });
 
@@ -217,6 +218,14 @@ app.get("/userData", auth, async (request, response) => {
     }
   );
 });
+
+// app.get("/currentUsers", auth, async (request, response) => {
+//   const userData = await User.find({balance: request.user.balance, email: request.user.email}).then((user) => {response.send({ email: user.email, balance: user.balance });})
+// })
+
+// app.get("/member", auth, (request, response) => {
+// const userData = ({request.user.userEmail, request.user.balance})
+// .then((user) => {if (!user) {return response.status(404).json({ message: "User not found" });} response.send({ email: user.email, balance: user.balance });})
 
 // // get user data
 // app.get("/userData", (request, response) => {
