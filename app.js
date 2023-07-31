@@ -204,20 +204,20 @@ app.get("/free-endpoint", (request, response) => {
 
 // protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
-  response.send({ user: request.user.User });
-  response.json({ message: "hi" });
+  response.json({ message: "" });
 });
 
-app.get("/userData", auth, async (request, response) => {
-  const user = await User.findOne({ email: request.user.userEmail }).then(
-    (user) => {
-      if (!user) {
-        return response.status(404).json({ message: "User not found" });
-      }
-      response.json({ email: user.email, balance: user.balance });
-    }
-  );
-});
+// app.get("/userData", auth, async (request, response) => {
+//   const user = await User.findOne({ email: request.user.userEmail }).then(
+//     (user) => {
+//       if (!user) {
+//         return response.status(404).json({ message: "User not found" });
+//       }
+//       response.send({ user: request.user.User });
+//       response.json({ email: user.email, balance: user.balance });
+//     }
+//   );
+// });
 
 // app.get("/currentUsers", auth, async (request, response) => {
 //   const userData = await User.find({balance: request.user.balance, email: request.user.email}).then((user) => {response.send({ email: user.email, balance: user.balance });})
