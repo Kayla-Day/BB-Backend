@@ -183,7 +183,6 @@ app.post("/withdraw", async (req, res) => {
     await user.save();
 
     res.send({
-      message: "Withdrawal successful",
       balance: user.balance,
     });
   } catch (error) {
@@ -203,8 +202,14 @@ app.get("/free-endpoint", (request, response) => {
 });
 
 // protected endpoint
-app.get("/auth-endpoint", auth, (request, response) => {
-  response.json({ message: "" });
+app.get("/auth-endpoint", auth, async (request, response) => {
+  try {
+    const { email, balance } = request.user;
+
+    response.json({ email, balance });
+  } catch (error) {
+    response.status(500).json({ error: "Server error" });
+  }
 });
 
 // app.get("/userData", auth, async (request, response) => {
@@ -219,14 +224,14 @@ app.get("/auth-endpoint", auth, (request, response) => {
 //   );
 // });
 
-app.get("/currentUsers", auth, async (request, response) => {
-  const userData = await User.find({
-    balance: request.user.balance,
-    email: request.user.email,
-  }).then((user) => {
-    response.send({ email: user.email, balance: user.balance });
-  });
-});
+// app.get("/currentUsers", auth, async (request, response) => {
+//   const userData = await User.find({
+//     balance: request.user.balance,
+//     email: request.user.email,
+//   }).then((user) => {
+//     response.send({ email: user.email, balance: user.balance });
+//   });
+// });
 
 // app.get("/member", auth, (request, response) => {
 // const userData = ({request.user.userEmail, request.user.balance})
