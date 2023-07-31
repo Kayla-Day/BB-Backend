@@ -150,10 +150,9 @@ app.post("/deposit", async (req, res) => {
     user.balance += amount;
     await user.save();
 
-    res.send({
+    res.json({
       message: "Deposit successful",
-      email: user.email,
-      balance: user.balance,
+      user: user,
     });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
@@ -179,10 +178,9 @@ app.post("/withdraw", async (req, res) => {
     user.balance -= amount;
     await user.save();
 
-    res.send({
+    res.json({
       message: "Withdrawal successful",
-      email: user.email,
-      balance: user.balance,
+      user: user,
     });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
