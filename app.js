@@ -167,7 +167,8 @@ app.post("/withdraw", async (req, res) => {
   const email = req.body.email;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: request.user.userEmail });
+    // const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
