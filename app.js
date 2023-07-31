@@ -82,10 +82,7 @@ app.post("/register", (request, response) => {
 // login endpoint
 app.post("/login", (request, response) => {
   // check if email exists
-  User.findOne({
-    email: request.body.email,
-    balance: request.body.balance,
-  })
+  User.findOne({ email: request.body.email })
 
     // if email exists
     .then((user) => {
@@ -117,11 +114,10 @@ app.post("/login", (request, response) => {
           response.status(200).send({
             message: "Login Successful",
             email: user.email,
-            balance: user.balance,
             token,
           });
         })
-        // catch error if password do not match
+        // catch error if password does not match
         .catch((error) => {
           response.status(400).send({
             message: "Passwords does not match",
