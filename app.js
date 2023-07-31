@@ -203,7 +203,7 @@ app.get("/free-endpoint", (request, response) => {
 // protected endpoint
 app.get("/auth-endpoint", auth, async (request, response) => {
   const user = await User.findOne({ email: request.user.userEmail });
-  response.json({ message: "test auth message", user: request.user });
+  response.json({ message: "test auth message", user: user });
 });
 
 module.exports = app;
