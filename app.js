@@ -205,7 +205,7 @@ app.get("/free-endpoint", (request, response) => {
 // protected endpoint
 app.get("/auth-endpoint", auth, (request, response) => {
   response.send({ user: request.user.User });
-  response.json({ message: "" });
+  response.json({ message: "hi" });
 });
 
 app.get("/userData", auth, async (request, response) => {
