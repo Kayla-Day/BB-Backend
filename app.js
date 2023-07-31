@@ -134,7 +134,7 @@ app.post("/login", (request, response) => {
     });
 });
 
-app.post("/deposit", auth, async (request, response) => {
+app.post("/deposit", async (request, response) => {
   try {
     // Assuming you have set up the user data in the request object during authentication
     const { balance } = request.user;
@@ -154,7 +154,7 @@ app.post("/deposit", auth, async (request, response) => {
 });
 
 // Withdraw endpoint (protected with auth middleware)
-app.post("/withdraw", auth, async (request, response) => {
+app.post("/withdraw", async (request, response) => {
   try {
     // Assuming you have set up the user data in the request object during authentication
     const { balance } = request.user;
