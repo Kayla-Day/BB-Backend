@@ -134,100 +134,60 @@ app.post("/login", (request, response) => {
     });
 });
 
-app.post("/deposit", async (request, response) => {
-  try {
-    // Assuming you have set up the user data in the request object during authentication
-    const { balance } = request.user;
-    const depositAmount = parseFloat(request.body.amount);
-
-    if (isNaN(depositAmount) || depositAmount <= 0) {
-      return response.status(400).json({ error: "Invalid deposit amount" });
-    }
-
-    const newBalance = balance + depositAmount;
-    await User.findByIdAndUpdate(request.user._id, { balance: newBalance });
-
-    response.json({ message: "Deposit successful", newBalance });
-  } catch (error) {
-    response.status(500).json({ error: "Server Error" });
-  }
-});
-
-// Withdraw endpoint (protected with auth middleware)
-app.post("/withdraw", async (request, response) => {
-  try {
-    // Assuming you have set up the user data in the request object during authentication
-    const { balance } = request.user;
-    const withdrawAmount = parseFloat(request.body.amount);
-
-    if (
-      isNaN(withdrawAmount) ||
-      withdrawAmount <= 0 ||
-      withdrawAmount > balance
-    ) {
-      return response.status(400).json({ error: "Invalid withdraw amount" });
-    }
-
-    const newBalance = balance - withdrawAmount;
-    await User.findByIdAndUpdate(request.user._id, { balance: newBalance });
-
-    response.json({ message: "Withdrawal successful", newBalance });
-  } catch (error) {
-    response.status(500).json({ error: "Server Error" });
-  }
-});
-
 //Testing Deposit and Withdrawal functionality
 // Deposit
-// app.post("/deposit", async (req, res) => {
-//   // const { email, amount } = req.body;
-//   const amount = Number(req.body.amount);
-//   const email = req.body.email;
+app.post("/deposit", async (req, res) => {
+  // const { email, amount } = req.body;
+  const amount = Number(req.body.amount);
+  const email = req.body.email;
 
-//   try {
-//     const user = await User.findOne({ email });
-//     if (!user) {
-//       return res.status(404).json({ error: "User not found" });
-//     }
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-//     user.balance += amount;
-//     await user.save();
+    user.balance += amount;
+    await user.save();
 
-//     res.send({
-//       message: "Deposit successful",
-//       balance: user.balance,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ error: "Server error" });
-//   }
-// });
+    res.send({
+      message: "Deposit successful",
+      //email: user.email,
+      balance: user.balance,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 // withdraw
-// app.post("/withdraw", async (req, res) => {
-//   // const { email, amount } = req.body;
-//   const amount = Number(req.body.amount);
-//   const email = req.body.email;
+app.post("/withdraw", async (req, res) => {
+  // const { email, amount } = req.body;
+  const amount = Number(req.body.amount);
+  const email = req.body.email;
 
-//   try {
-//     const user = await User.findOne({ email });
-//     if (!user) {
-//       return res.status(404).json({ error: "User not found" });
-//     }
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-//     if (user.balance < amount) {
-//       return res.status(400).json({ error: "Insufficient balance" });
-//     }
+    if (user.balance < amount) {
+      return res.status(400).json({ error: "Insufficient balance" });
+    }
 
-//     user.balance -= amount;
-//     await user.save();
+    user.balance -= amount;
+    await user.save();
 
-//     res.send({
-//       balance: user.balance,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ error: "Server error" });
-//   }
-// });
+    res.send({
+      message: "Withdrawal successful",
+      //email: user.email,
+      balance: user.balance,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 app.post("/logout", (req, res) => {
   // This is where you handle the logout
@@ -242,13 +202,7 @@ app.get("/free-endpoint", (request, response) => {
 
 // protected endpoint
 app.get("/auth-endpoint", auth, async (request, response) => {
-  try {
-    const { email, balance } = request.user;
-
-    response.json({ email, balance });
-  } catch (error) {
-    response.status(500).json({ error: "Server error" });
-  }
+  response.json({ message: "" });
 });
 
 module.exports = app;
