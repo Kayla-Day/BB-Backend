@@ -152,7 +152,7 @@ app.post("/deposit", async (req, res) => {
 
     res.send({
       message: "Deposit successful",
-      //email: user.email,
+      email: user.email,
       balance: user.balance,
     });
   } catch (error) {
@@ -182,7 +182,7 @@ app.post("/withdraw", async (req, res) => {
 
     res.send({
       message: "Withdrawal successful",
-      //email: user.email,
+      email: user.email,
       balance: user.balance,
     });
   } catch (error) {
